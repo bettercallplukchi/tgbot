@@ -25,6 +25,23 @@ def info_func(message):
     )
 
 
+@bot.message_handler(["geophone"])
+def geophone(message):
+    keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+    button_phone = types.KeyboardButton(
+        text="Отправьте номер телефона", request_contact=True
+    )
+    button_geo = types.KeyboardButton(
+        text="Отправьте геолокацию", request_location=True
+    )
+    keyboard.add(button_phone, button_geo)
+    bot.send_message(
+        message.chat.id,
+        "Отправь мне цифра свои, даст бог свидимся.",
+        reply_markup=keyboard,
+    )
+
+
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message):
     bot.send_message(message.chat.id, message.text)
